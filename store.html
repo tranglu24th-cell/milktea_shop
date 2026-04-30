@@ -287,42 +287,86 @@
             }
         });
 
+        //$(function () {
+        //    var productList = [];
+        //    var retrievedObject = localStorage.getItem('products');
+        //    if (retrievedObject != null)
+        //        productList = JSON.parse(retrievedObject);
+        //    showProduct();
+        //    function showProduct() {
+        //        $("#productList").html("");
+        //        for (var i = 0; i < productList.length; i++) {
+        //            var productHTML = '<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">' +
+
+        //                '<img class="img-fluid" src="img/' + productList[i].picture + '" alt="">' +
+        //                '<div class="p-4">' +
+        //                '<div class="text-center mb-3">' +
+        //                '<small class="fa fa-star text-primary"></small>' +
+        //                '<small class="fa fa-star text-primary"></small>' +
+        //                '<small class="fa fa-star text-primary"></small>' +
+        //                '<small class="fa fa-star text-primary"></small>' +
+        //                '<small class="fa fa-star text-primary"></small>' +
+        //                '</div>' +
+        //                '<h4 class="mb-3">' + productList[i].name + '</h4>' +
+        //                '<p>Trà sữa thơm ngon, topping đầy đủ</p>' +
+        //                '<h4 class="text-primary">' + productList[i].price + '</h4>' +
+        //                '</div>' +
+        //                '<div class="store-overlay">' +
+        //                '<a href="" class="btn btn-primary rounded-pill py-2 px-4 m-2">Chi tiết <i class="fa fa-arrow-right ms-2"></i></a>' +
+        //                '<a href="" class="btn btn-dark rounded-pill py-2 px-4 m-2">Thêm vào giỏ hàng <i class="fa fa-cart-plus ms-2"></i></a>' +
+
+        //                '</div>' +
+        //                '</div>' +
+        //                '</div > ';
+        //            $("#productList").append(productHTML);
+        //        }
+        //    }
+
+        //});
+
+
         $(function () {
             var productList = [];
-            var retrievedObject = localStorage.getItem('products');
-            if (retrievedObject != null)
-                productList = JSON.parse(retrievedObject);
-            showProduct();
-            function showProduct() {
-                $("#productList").html("");
-                for (var i = 0; i < productList.length; i++) {
-                    var productHTML = '<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">' +
 
-                        '<img class="img-fluid" src="img/' + productList[i].picture + '" alt="">' +
-                        '<div class="p-4">' +
-                        '<div class="text-center mb-3">' +
-                        '<small class="fa fa-star text-primary"></small>' +
-                        '<small class="fa fa-star text-primary"></small>' +
-                        '<small class="fa fa-star text-primary"></small>' +
-                        '<small class="fa fa-star text-primary"></small>' +
-                        '<small class="fa fa-star text-primary"></small>' +
-                        '</div>' +
-                        '<h4 class="mb-3">' + productList[i].name + '</h4>' +
-                        '<p>Trà sữa thơm ngon, topping đầy đủ</p>' +
-                        '<h4 class="text-primary">' + productList[i].price + '</h4>' +
-                        '</div>' +
-                        '<div class="store-overlay">' +
-                        '<a href="" class="btn btn-primary rounded-pill py-2 px-4 m-2">Chi tiết <i class="fa fa-arrow-right ms-2"></i></a>' +
-                        '<a href="" class="btn btn-dark rounded-pill py-2 px-4 m-2">Thêm vào giỏ hàng <i class="fa fa-cart-plus ms-2"></i></a>' +
-                       
-                        '</div>' +
-                        '</div>' +
-                        '</div > ';
-                    $("#productList").append(productHTML);
-                }
+            // 1. Thử lấy dữ liệu từ máy người dùng
+            var retrievedObject = localStorage.getItem('products');
+
+            // 2. KIỂM TRA: Nếu máy khách hàng chưa có dữ liệu (lần đầu truy cập)
+            if (retrievedObject == null || JSON.parse(retrievedObject).length === 0) {
+                // Tạo một danh sách sản phẩm mẫu mặc định
+                productList = [
+                    { id: 1, name: "Trà sữa trân châu", price: "30.000đ", picture: "img/p1.jpg" },
+                    { id: 2, name: "Trà sữa Matcha", price: "35.000đ", picture: "img/p2.jpg" },
+                    { id: 3, name: "Trà sữa khoai môn", price: "35.000đ", picture: "img/p3.jpg" },
+                    { id: 4, name: "Trà sữa dâu", price: "35.000đ", picture: "img/p4.jpg" }
+                ];
+                // Lưu ngược lại vào máy khách để lần sau họ vào vẫn thấy
+                localStorage.setItem('products', JSON.stringify(productList));
+            } else {
+                // Nếu máy họ đã có dữ liệu rồi thì lấy ra dùng bình thường
+                productList = JSON.parse(retrievedObject);
             }
-            
+
+            // Sau đó mới gọi hàm hiển thị sản phẩm
+            showProduct(productList);
         });
+
+        // Lưu ý: Sửa lại hàm showProduct để nhận vào danh sách productList
+        function showProduct(list) {
+            var html = "";
+            list.forEach(item => {
+                html += `
+            <div class="col-lg-3 col-md-6">
+                <div class="store-item">
+                    <img src="${item.picture}" class="img-fluid">
+                    <h4>${item.name}</h4>
+                    <p>${item.price}</p>
+                    <button class="btn btn-primary">Mua ngay</button>
+                </div>
+            </div>`;
+            });
+            $("#product-list").html(html); // ID này phải khớp với thẻ chứa sản phẩm của bạn
+        }
 
     </script>
 </body>
