@@ -79,7 +79,7 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Khác</a>
                             <div class="dropdown-menu bg-light rounded-0 m-0">
-                                <a href="feature.html" class="dropdown-item">Tính năng</a>
+                                <!--<a href="feature.html" class="dropdown-item">Tính năng</a>-->
                                 <a href="blog.html" class="dropdown-item">Bài viết</a>
                                 <a href="testimonial.html" class="dropdown-item">Đánh giá</a>
                                 <a href="404.html" class="dropdown-item">Trang lỗi</a>
@@ -414,7 +414,7 @@
                                 <div class="btn-square mx-auto mb-3">
                                     <i class="fa fa-map-marker-alt fa-2x text-white"></i>
                                 </div>
-                                
+
                                 <p class="mb-0">Việt Nam</p>
                             </div>
                         </div>
@@ -587,7 +587,7 @@
                             '</div>' +
 
                             '<div class="card-footer text-center bg-white">' +
-                            
+
                             '<a href="#" class="btn btn-outline-primary btn-sm viewDetail" data-id="' + newsList[i].id + '">Xem thêm</a>' +
                             '</div>' +
 
@@ -622,6 +622,51 @@
                 </div>
             </div>
         </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                // 1. Tự động tìm cái kính lúp trên Navbar của bạn
+                // Template thường dùng class 'fa-search' cho kính lúp
+                var iconSearch = $('.fa-search').closest('a, button');
+
+                // 2. Chèn ô nhập liệu ẩn vào trước kính lúp
+                if ($('#searchHome').length === 0) {
+                    iconSearch.before('<input type="text" id="searchHome" placeholder="Tìm trà sữa..." style="width: 0; opacity: 0; transition: 0.4s; border: 1px solid #32E0C4; border-radius: 20px; padding: 2px 10px; outline: none; margin-right: 5px;">');
+                }
+
+                // 3. Hiệu ứng khi bấm vào kính lúp
+                iconSearch.on('click', function (e) {
+                    e.preventDefault();
+                    var input = $('#searchHome');
+                    var keyword = input.val().trim();
+
+                    if (keyword === "") {
+                        // Nếu chưa gõ gì, bấm vào để hiện/ẩn ô nhập
+                        var isActive = input.hasClass('active');
+                        input.toggleClass('active').css({
+                            'width': isActive ? '0' : '180px',
+                            'opacity': isActive ? '0' : '1'
+                        });
+                        if (!isActive) input.focus();
+                    } else {
+                        // Nếu đã gõ chữ, chuyển sang trang store.html kèm từ khóa
+                        window.location.href = "store.html?search=" + encodeURIComponent(keyword);
+                    }
+                });
+
+                // 4. Nhấn Enter cũng chuyển trang luôn
+                $('#searchHome').on('keypress', function (e) {
+                    if (e.which == 13) {
+                        var keyword = $(this).val().trim();
+                        if (keyword !== "") {
+                            window.location.href = "store.html?search=" + encodeURIComponent(keyword);
+                        }
+                    }
+                });
+            });
+        </script>
+
 </body>
 
 </html>

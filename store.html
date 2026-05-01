@@ -79,7 +79,7 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Khác</a>
                             <div class="dropdown-menu bg-light rounded-0 m-0">
-                                <a href="feature.html" class="dropdown-item">Tính năng</a>
+                                <!--<a href="feature.html" class="dropdown-item">Tính năng</a>-->
                                 <a href="blog.html" class="dropdown-item">Bài viết</a>
                                 <a href="testimonial.html" class="dropdown-item">Đánh giá</a>
                                 <a href="404.html" class="dropdown-item">Trang lỗi</a>
@@ -287,80 +287,45 @@
             }
         });
 
-        //$(function () {
-        //    var productList = [];
-        //    var retrievedObject = localStorage.getItem('products');
-        //    if (retrievedObject != null)
-        //        productList = JSON.parse(retrievedObject);
-        //    showProduct();
-        //    function showProduct() {
-        //        $("#productList").html("");
-        //        for (var i = 0; i < productList.length; i++) {
-        //            var productHTML = '<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">' +
-
-        //                '<img class="img-fluid" src="img/' + productList[i].picture + '" alt="">' +
-        //                '<div class="p-4">' +
-        //                '<div class="text-center mb-3">' +
-        //                '<small class="fa fa-star text-primary"></small>' +
-        //                '<small class="fa fa-star text-primary"></small>' +
-        //                '<small class="fa fa-star text-primary"></small>' +
-        //                '<small class="fa fa-star text-primary"></small>' +
-        //                '<small class="fa fa-star text-primary"></small>' +
-        //                '</div>' +
-        //                '<h4 class="mb-3">' + productList[i].name + '</h4>' +
-        //                '<p>Trà sữa thơm ngon, topping đầy đủ</p>' +
-        //                '<h4 class="text-primary">' + productList[i].price + '</h4>' +
-        //                '</div>' +
-        //                '<div class="store-overlay">' +
-        //                '<a href="" class="btn btn-primary rounded-pill py-2 px-4 m-2">Chi tiết <i class="fa fa-arrow-right ms-2"></i></a>' +
-        //                '<a href="" class="btn btn-dark rounded-pill py-2 px-4 m-2">Thêm vào giỏ hàng <i class="fa fa-cart-plus ms-2"></i></a>' +
-
-        //                '</div>' +
-        //                '</div>' +
-        //                '</div > ';
-        //            $("#productList").append(productHTML);
-        //        }
-        //    }
-
-        //});
-
-
         $(function () {
-            // Dữ liệu mẫu cho khách hàng thấy ngay
-            var defaultData = [
-                { id: 1, name: "Trà sữa khoai môn", price: "30.000", picture: "img/p1.jpg" },
-                { id: 2, name: "Trà dâu", price: "35.000", picture: "img/p2.jpg" },
-                { id: 3, name: "Trà sữa socola", price: "35.000", picture: "img/p3.jpg" }
-            ];
-
-            var retrievedObject = localStorage.getItem('products');
             var productList = [];
-
-            // Nếu máy khách chưa có dữ liệu, lấy dữ liệu mẫu ở trên
-            if (retrievedObject == null || JSON.parse(retrievedObject).length === 0) {
-                productList = defaultData;
-            } else {
+            var retrievedObject = localStorage.getItem('products');
+            if (retrievedObject != null)
                 productList = JSON.parse(retrievedObject);
+            showProduct();
+            function showProduct() {
+                $("#productList").html("");
+                for (var i = 0; i < productList.length; i++) {
+                    var productHTML = '<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">' +
+
+                        '<img class="img-fluid" src="img/' + productList[i].picture + '" alt="">' +
+                        '<div class="p-4">' +
+                        '<div class="text-center mb-3">' +
+                        '<small class="fa fa-star text-primary"></small>' +
+                        '<small class="fa fa-star text-primary"></small>' +
+                        '<small class="fa fa-star text-primary"></small>' +
+                        '<small class="fa fa-star text-primary"></small>' +
+                        '<small class="fa fa-star text-primary"></small>' +
+                        '</div>' +
+                        '<h4 class="mb-3">' + productList[i].name + '</h4>' +
+                        '<p>Trà sữa thơm ngon, topping đầy đủ</p>' +
+                        '<h4 class="text-primary">' + productList[i].price + '</h4>' +
+                        '</div>' +
+                        '<div class="store-overlay">' +
+                        '<a href="" class="btn btn-primary rounded-pill py-2 px-4 m-2">Chi tiết <i class="fa fa-arrow-right ms-2"></i></a>' +
+                        '<a href="" class="btn btn-dark rounded-pill py-2 px-4 m-2">Thêm vào giỏ hàng <i class="fa fa-cart-plus ms-2"></i></a>' +
+
+                        '</div>' +
+                        '</div>' +
+                        '</div > ';
+                    $("#productList").append(productHTML);
+                }
             }
 
-            showProduct(productList);
         });
 
-        function showProduct(data) {
-            var n_list = "";
-            $.each(data, function (i, v) {
-                n_list += `
-                <div class="col-lg-3 col-md-6">
-                    <div class="store-item text-center">
-                        <img class="img-fluid" src="${v.picture}">
-                        <h4 class="mt-3">${v.name}</h4>
-                        <p>${v.price} VNĐ</p>
-                        <button class="btn btn-primary rounded-pill">Mua ngay</button>
-                    </div>
-                </div>`;
-            });
-            $("#product-list").html(n_list);
-        }
+
+        
 
     </script>
 </body>
