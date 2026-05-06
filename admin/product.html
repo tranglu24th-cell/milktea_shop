@@ -261,12 +261,46 @@
                                       <h3 class="card-title">Bảng danh sách sản phẩm</h3>
                                   </div>
                                   <!-- /.card-header -->
-                                  
+
+
+
+                                  <div class="container-xxl py-5">
+                                      <div class="container">
+                                          <div class="row">
+                                              <div class="col-lg-3">
+                                                  <div class="filter-menu shadow-sm p-3 mb-5 bg-white rounded">
+                                                      <h5 class="text-primary mb-3">DANH MỤC</h5>
+                                                      <div class="list-group">
+                                                          <button type="button" class="list-group-item list-group-item-action active" onclick="filterProduct('all', this)">Tất cả sản phẩm</button>
+                                                          <button type="button" class="list-group-item list-group-item-action" onclick="filterProduct('tra-sua', this)">Trà Sữa</button>
+                                                          <button type="button" class="list-group-item list-group-item-action" onclick="filterProduct('tra-trai-cay', this)">Trà Trái Cây</button>
+                                                          <button type="button" class="list-group-item list-group-item-action" onclick="filterProduct('topping', this)">Topping</button>
+                                                      </div>
+                                                  </div>
+                                              </div>
+
+
+                                              <div class="col-lg-9">
+                                                  <div class="row g-4" id="productList">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+
+
+
 
                                   <div class="card-body">
-                                      <button id="addProduct" type="button" class="btn btn-primary mb-2" >
+                                      <button id="addProduct" type="button" class="btn btn-primary mb-2">
                                           Thêm sản phẩm
                                       </button>
+
+
+
+
+
+
                                       <table id="productList" class="table table-bordered">
                                           <thead>
                                               <tr>
@@ -382,14 +416,16 @@
                   var pName = $("#productName").val();
                   var pPicture = $("#productPicture").val();
                   var pPrice = $("#productPrice").val();
+                  var pCategory = $("#productCategory").val();
                   if (isNew)
-                      productList.push({ id: pId, name: pName, picture: pPicture, price: pPrice });
+                      productList.push({ id: pId, name: pName, picture: pPicture, price: pPrice, category: pCategory });
                   else {
                       for (var i = 0; i < productList.length; i++) {
                           if (productList[i].id == pId) {
                               productList[i].name = pName;
                               productList[i].picture = pPicture;
                               productList[i].price = pPrice;
+                              productList[i].category = pCategory;
                           }
                       }
                   }
@@ -480,6 +516,16 @@
                           <div class="col-sm-9">
                               <input type="number" class="form-control" id="productPrice" />
                           </div>
+                          <div class="row mb-3">
+                              <label for="productCategory" class="col-sm-3 col-form-label">Danh mục</label>
+                              <div class="col-sm-9">
+                                  <select class="form-control" id="productCategory">
+                                      <option value="tra-sua">Trà sữa</option>
+                                      <option value="tra-trai-cay">Trà trái cây</option>
+                                      <option value="topping">Topping</option>
+                                  </select>
+                              </div>
+                          </div>
                       </div>
 
                   </div>
@@ -490,6 +536,10 @@
               </div>
           </div>
       </div>
+
+
+
+
   </body>
   <!--end::Body-->
 </html>

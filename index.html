@@ -76,6 +76,9 @@
                         <a href="about.html" class="nav-item nav-link">Giới thiệu</a>
                         <a href="product.html" class="nav-item nav-link">Sản phẩm</a>
                         <a href="store.html" class="nav-item nav-link">Cửa hàng</a>
+                        <a href="#" class="nav-link btn btn-outline-primary ms-3 px-3 rounded-pill" data-bs-toggle="modal" data-bs-target="#authModal">
+                            <i class="fa fa-user me-1"></i> Đăng nhập
+                        </a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Khác</a>
                             <div class="dropdown-menu bg-light rounded-0 m-0">
@@ -322,9 +325,25 @@
                 <h1 class="display-6">Chọn ngay trà sữa yêu thích của bạn</h1>
 
             </div>
-            <div class="row g-4" id="productList"> </div>
+            <!--<div class="row g-4" id="productList"> </div>-->
+            <div class="row g-4">
+                <div class="col-lg-3">
+                    <h5 class="mb-4">CHUYÊN MỤC</h5>
+                    <div class="list-group">
+                        <button type="button" class="list-group-item list-group-item-action active" onclick="filterProduct('all', this)">Tất cả</button>
+                        <button type="button" class="list-group-item list-group-item-action" onclick="filterProduct('tra-sua', this)">Trà sữa</button>
+                        <button type="button" class="list-group-item list-group-item-action" onclick="filterProduct('tra-trai-cay', this)">Trà trái cây</button>
+                        <button type="button" class="list-group-item list-group-item-action" onclick="filterProduct('topping', this)">Topping</button>
+                    </div>
+                </div>
+
+                <div class="col-lg-9">
+                    <div class="row g-4" id="productList">
+                    </div>
+                </div>
+            </div>
             <!----------------------------------------------------------------------------->
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+            <!--<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
 
 
                 <img class="img-fluid" src="img/p4.jpg" alt="">
@@ -351,7 +370,7 @@
 
                 </div>
 
-            </div>
+            </div>-->
             <!----------------------------------------------------------------------------->
         </div>
 
@@ -539,125 +558,375 @@
         });
 
         $(function () {
+            //var productList = [];
+            //var retrievedObject = localStorage.getItem('products');
+            //if (retrievedObject != null)
+            //    productList = JSON.parse(retrievedObject);
+            //showProduct();
+            //function showProduct() {
+            //    $("#productList").html("");
+            //    for (var i = 0; i < productList.length; i++) {
+            //        var productHTML = '<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">' +
+
+            //            '<img class="img-fluid" src="img/' + productList[i].picture + '" alt="">' +
+            //            '<div class="p-4">' +
+            //            '<div class="text-center mb-3">' +
+            //            '<small class="fa fa-star text-primary"></small>' +
+            //            '<small class="fa fa-star text-primary"></small>' +
+            //            '<small class="fa fa-star text-primary"></small>' +
+            //            '<small class="fa fa-star text-primary"></small>' +
+            //            '<small class="fa fa-star text-primary"></small>' +
+            //            '</div>' +
+            //            '<h4 class="mb-3">' + productList[i].name + '</h4>' +
+            //            '<p>Trà sữa thơm ngon, topping đầy đủ</p>' +
+            //            '<h4 class="text-primary">' + productList[i].price + '</h4>' +
+            //            '</div>' +
+            //            '<div class="store-overlay">' +
+            //            '<a href="" class="btn btn-primary rounded-pill py-2 px-4 m-2">Chi tiết <i class="fa fa-arrow-right ms-2"></i></a>' +
+            //            '<a href="" class="btn btn-dark rounded-pill py-2 px-4 m-2">Thêm vào giỏ hàng <i class="fa fa-cart-plus ms-2"></i></a>' +
+            //            '</div>' +
+            //            '</div>' +
+            //            '</div >';
+            //        $("#productList").append(productHTML);
+            //    }
+            //}
             var productList = [];
+            // 1. Lấy dữ liệu hoặc tạo dữ liệu mẫu nếu trống (để đi thi không bị trắng trang)
             var retrievedObject = localStorage.getItem('products');
-            if (retrievedObject != null)
-                productList = JSON.parse(retrievedObject);
-            showProduct();
-            function showProduct() {
+            //    var productList = retrievedObject ? JSON.parse(retrievedObject) : [];
+
+            //    // 2. Tự động chạy khi trang web load xong
+            //    $(document).ready(function () {
+            //        // Nếu máy trống trơn chưa có món nào, hiện thông báo cho dễ đi thi
+            //        if (productList.length === 0) {
+            //            $("#productList").html("<div class='col-12 text-center'><p>Chưa có sản phẩm nào. Bạn hãy vào trang Admin để thêm nhé!</p></div>");
+            //        } else {
+            //            showProduct(productList);
+            //        }
+            //    });
+
+            //    // 3. Hàm hiển thị sản phẩm (Nút nằm dưới giá, không bị ẩn)
+            //    function showProduct(data) {
+            //        $("#productList").html("");
+            //        data.forEach(item => {
+            //            let html = `
+            //            <div class="col-md-6 col-lg-4 mb-4">
+            //                <div class="product-item shadow-sm border p-3 text-center" style="border-radius: 15px; background: #fff;">
+            //                    <img class="img-fluid mb-3" src="img/${item.picture}" style="height:200px; width:100%; object-fit:cover; border-radius: 10px;">
+            //                    <h5 class="fw-bold">${item.name}</h5>
+            //                    <h5 class="text-primary">${item.price}đ</h5>
+            //                    <p class="small text-muted">Trà sữa thơm ngon, chuẩn vị.</p>
+
+            //                    <div class="d-grid gap-2 d-md-block mt-3">
+            //                        <button class="btn btn-primary btn-sm rounded-pill px-3"
+            //                            onclick="openDetail('${item.name}', '${item.picture}', '${item.price}')">
+            //                            Chi tiết
+            //                        </button>
+            //                        <button class="btn btn-dark btn-sm rounded-pill px-3"
+            //                            onclick="alert('Đã thêm ${item.name} vào giỏ hàng!')">
+            //                            + Giỏ hàng
+            //                        </button>
+            //                    </div>
+            //                </div>
+            //            </div>`;
+            //            $("#productList").append(html);
+            //        });
+            //    }
+
+            //    // 4. Hàm Lọc sản phẩm
+            //    function filterProduct(category, btn) {
+            //        $(".list-group-item").removeClass("active");
+            //        $(btn).addClass("active");
+
+            //        if (category === 'all') {
+            //            showProduct(productList);
+            //        } else {
+            //            let filtered = productList.filter(item => item.category === category);
+            //            showProduct(filtered);
+            //        }
+            //    }
+
+            //    // 5. Hàm hiện Modal Chi tiết
+            //    function openDetail(name, img, price) {
+            //        $("#dName").text(name);
+            //        $("#dImg").attr("src", "img/" + img);
+            //        $("#dPrice").text(price + "đ");
+
+            //        // Kích hoạt Modal của Bootstrap
+            //        var myModal = new bootstrap.Modal(document.getElementById('detailModal'));
+            //        myModal.show();
+            //    }
+            //    // ================= NEWS =================
+            //    var newsList = [];
+            //    var newsData = localStorage.getItem("news");
+
+            //    if (newsData != null)
+            //        newsList = JSON.parse(newsData);
+
+            //    showNews();
+
+            //    function showNews() {
+            //        $("#newsListHome").html("");
+
+            //        for (var i = 0; i < newsList.length; i++) {
+
+            //            var html =
+            //                '<div class="col-lg-4 col-md-6 wow fadeInUp">' +
+
+            //                '<div class="card h-100 shadow-sm">' +
+
+            //                (newsList[i].picture ?
+            //                    '<img src="' + newsList[i].picture + '" class="card-img-top" style="height:200px;object-fit:cover;">'
+            //                    : '') +
+
+            //                '<div class="card-body">' +
+            //                '<h5 class="card-title">' + newsList[i].title + '</h5>' +
+            //                '<p class="card-text" style="height:60px;overflow:hidden;">' +
+            //                newsList[i].content +
+            //                '</p>' +
+            //                '</div>' +
+
+            //                '<div class="card-footer text-center bg-white">' +
+
+            //                '<a href="#" class="btn btn-outline-primary btn-sm viewDetail" data-id="' + newsList[i].id + '">Xem thêm</a>' +
+            //                '</div>' +
+
+            //                '</div>' +
+
+            //                '</div>';
+
+            //            $("#newsListHome").append(html);
+            //        }
+            //    }
+
+            //});
+
+            var productList = JSON.parse(localStorage.getItem('products')) || [];
+            var cart = []; // Mảng chứa giỏ hàng
+
+            $(document).ready(function () {
+                showProduct(productList);
+            });
+
+            // 2. Hàm hiển thị sản phẩm (Có nút Chi tiết và Giỏ hàng)
+            function showProduct(data) {
                 $("#productList").html("");
-                for (var i = 0; i < productList.length; i++) {
-                    var productHTML = '<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">' +
-
-                        '<img class="img-fluid" src="img/' + productList[i].picture + '" alt="">' +
-                        '<div class="p-4">' +
-                        '<div class="text-center mb-3">' +
-                        '<small class="fa fa-star text-primary"></small>' +
-                        '<small class="fa fa-star text-primary"></small>' +
-                        '<small class="fa fa-star text-primary"></small>' +
-                        '<small class="fa fa-star text-primary"></small>' +
-                        '<small class="fa fa-star text-primary"></small>' +
-                        '</div>' +
-                        '<h4 class="mb-3">' + productList[i].name + '</h4>' +
-                        '<p>Trà sữa thơm ngon, topping đầy đủ</p>' +
-                        '<h4 class="text-primary">' + productList[i].price + '</h4>' +
-                        '</div>' +
-                        '<div class="store-overlay">' +
-                        '<a href="" class="btn btn-primary rounded-pill py-2 px-4 m-2">Chi tiết <i class="fa fa-arrow-right ms-2"></i></a>' +
-                        '<a href="" class="btn btn-dark rounded-pill py-2 px-4 m-2">Thêm vào giỏ hàng <i class="fa fa-cart-plus ms-2"></i></a>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div >';
-                    $("#productList").append(productHTML);
+                if (data.length === 0) {
+                    $("#productList").html("<p class='text-center'>Chưa có sản phẩm nào.</p>");
+                    return;
                 }
-            }
-            // ================= NEWS =================
-            var newsList = [];
-            var newsData = localStorage.getItem("news");
-
-            if (newsData != null)
-                newsList = JSON.parse(newsData);
-
-            showNews();
-
-            function showNews() {
-                $("#newsListHome").html("");
-
-                for (var i = 0; i < newsList.length; i++) {
-
-                    var html =
-                        '<div class="col-lg-4 col-md-6 wow fadeInUp">' +
-
-                        '<div class="card h-100 shadow-sm">' +
-
-                        (newsList[i].picture ?
-                            '<img src="' + newsList[i].picture + '" class="card-img-top" style="height:200px;object-fit:cover;">'
-                            : '') +
-
-                        '<div class="card-body">' +
-                        '<h5 class="card-title">' + newsList[i].title + '</h5>' +
-                        '<p class="card-text" style="height:60px;overflow:hidden;">' +
-                        newsList[i].content +
-                        '</p>' +
-                        '</div>' +
-
-                        '<div class="card-footer text-center bg-white">' +
-
-                        '<a href="#" class="btn btn-outline-primary btn-sm viewDetail" data-id="' + newsList[i].id + '">Xem thêm</a>' +
-                        '</div>' +
-
-                        '</div>' +
-
-                        '</div>';
-
-                    $("#newsListHome").append(html);
-                }
+                data.forEach(item => {
+                    // Xử lý giá: ép kiểu về chuỗi rồi bỏ dấu chấm để tính toán
+                    let priceStr = item.price.toString().replace(/\./g, '');
+                    let html = `
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="product-item shadow-sm border p-3 text-center" style="border-radius: 15px;">
+                                <img class="img-fluid mb-3" src="img/${item.picture}" style="height:200px; width:100%; object-fit:cover; border-radius: 10px;">
+                                <h5 class="fw-bold">${item.name}</h5>
+                                <h5 class="text-primary">${item.price}đ</h5>
+                                <div class="d-grid gap-2 d-md-block mt-3">
+                                    <button class="btn btn-primary btn-sm rounded-pill px-3"
+                                        onclick="openDetail('${item.name}', '${item.picture}', '${item.price}')">Chi tiết</button>
+                                    <button class="btn btn-dark btn-sm rounded-pill px-3"
+                                        onclick="addToCart('${item.name}', '${priceStr}')">+ Giỏ hàng</button>
+                                </div>
+                            </div>
+                        </div>`;
+                    $("#productList").append(html);
+                });
             }
 
-        });
+            // 3. Hàm Thêm vào giỏ hàng (QUAN TRỌNG NHẤT)
+            function addToCart(name, price) {
+                let item = cart.find(i => i.name === name);
+                if (item) {
+                    item.quantity += 1;
+                } else {
+                    cart.push({ name: name, price: parseInt(price), quantity: 1 });
+                }
+                alert("Đã thêm " + name + " vào giỏ hàng!");
+            }
+
+            // 4. Hàm hiển thị Giỏ hàng và Tính tổng tiền
+            function showCart() {
+                $("#cartContent").html("");
+                let total = 0;
+                if (cart.length === 0) {
+                    $("#cartContent").html("<p class='text-center text-danger'>Giỏ hàng trống!</p>");
+                } else {
+                    cart.forEach(item => {
+                        let itemTotal = item.price * item.quantity;
+                        total += itemTotal;
+                        $("#cartContent").append(`
+                            <div class="d-flex justify-content-between mb-2 border-bottom pb-1">
+                                <span>${item.name} (x${item.quantity})</span>
+                                <span>${itemTotal.toLocaleString()}đ</span>
+                            </div>`);
+                    });
+                }
+                $("#cartTotal").text(total.toLocaleString());
+                var myModal = new bootstrap.Modal(document.getElementById('cartModal'));
+                myModal.show();
+            }
+
+            // 5. Hàm Chi tiết sản phẩm
+            function openDetail(name, img, price) {
+                $("#dName").text(name);
+                $("#dImg").attr("src", "img/" + img);
+                $("#dPrice").text(price + "đ");
+                var myModal = new bootstrap.Modal(document.getElementById('detailModal'));
+                myModal.show();
+            }
+
+            // 6. Hàm Lọc
+            function filterProduct(category, btn) {
+                $(".list-group-item").removeClass("active");
+                $(btn).addClass("active");
+                if (category === 'all') {
+                    showProduct(productList);
+                } else {
+                    let filtered = productList.filter(item => item.category === category);
+                    showProduct(filtered);
+                }
+            }
+
+
+            function handleRegister() {
+                let user = $("#rUser").val();
+                let pass = $("#rPass").val();
+                if (user && pass) {
+                    // Đổi tên thành customerAccount để tránh trùng với admin
+                    localStorage.setItem('customerAccount', JSON.stringify({ user, pass }));
+                    alert("Đăng ký thành công!");
+                }
+            }
+
+            function handleLogin() {
+                let u = $("#lUser").val();
+                let p = $("#lPass").val();
+                let acc = JSON.parse(localStorage.getItem('customerAccount'));
+
+                if (acc && acc.u === u && acc.p === p) {
+                    // 1. Xóa cái màn hình đen ngay lập tức (Để không bị đứng máy)
+                    $('.modal-backdrop').remove();
+                    $('body').removeClass('modal-open');
+                    $('body').css('overflow', 'auto');
+                    $('#authModal').hide();
+
+                    // 2. Hiện thông báo
+                    alert("Đăng nhập thành công! Chào mừng " + u);
+
+                    // 3. Tải lại trang để xóa sạch mọi lỗi kẹt màn hình
+                    window.location.reload();
+                } else {
+                    alert("Sai tài khoản hoặc mật khẩu!");
+                }
+            }
 
     </script>
 
 
     <!-- Modal Chi tiết tin -->
-    <div class="modal fade" id="newsDetailModal">
+    <div class="modal fade" id="newsModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-
                 <div class="modal-header">
-                    <h5 class="modal-title" id="newsDetailTitle"></h5>
-                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                    <h5 class="modal-title" id="modalTitle"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-
                 <div class="modal-body">
-                    <img id="newsDetailImage" class="img-fluid mb-3" style="width:100%;max-height:300px;object-fit:cover;">
-                    <p id="newsDetailContent"></p>
+                    <img id="modalImg" src="" class="img-fluid mb-3" style="width:100%;max-height:400px;object-fit:cover;">
+                    <p id="modalDesc"></p>
                 </div>
-
             </div>
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            // 1. Tự động tìm cái kính lúp trên Navbar của bạn
-            // Template thường dùng class 'fa-search' cho kính lúp
-            var iconSearch = $('.fa-search').closest('a, button');
+    <div class="modal fade" id="detailModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content text-center p-4">
+                <div class="modal-header border-0 p-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <h3 id="dName" class="fw-bold"></h3>
+                <img id="dImg" src="" class="img-fluid rounded my-3" style="max-height: 250px; object-fit: contain;">
+                <h4 id="dPrice" class="text-primary"></h4>
+                <hr>
+                <p class="text-muted">Nguyên liệu sạch 100%, đậm vị trà tự nhiên, thơm béo vị sữa. Sản phẩm được yêu thích nhất tuần.</p>
+                <button class="btn btn-primary w-100 mt-3 rounded-pill" data-bs-dismiss="modal" onclick="alert('Đã thêm vào giỏ!')">MUA NGAY</button>
+            </div>
+        </div>
+    </div>
 
-            // 2. Chèn ô nhập liệu ẩn vào trước kính lúp
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
+                <div class="modal-header">
+                    <h5 class="modal-title">GIỎ HÀNG CỦA BẠN</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="cartContent"></div>
+                    <hr>
+                    <h4 class="text-end">Tổng: <span id="cartTotal" class="text-primary">0</span>đ</h4>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary w-100" onclick="alert('Đặt hàng thành công! Đơn hàng đang được xử lý.')">TIẾN HÀNH ĐẶT HÀNG</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4 border-0 shadow" style="border-radius: 20px;">
+                <ul class="nav nav-pills mb-3 justify-content-center" role="tablist">
+                    <li class="nav-item"><button class="nav-link active rounded-pill px-4" data-bs-toggle="pill" data-bs-target="#loginTab">Đăng nhập</button></li>
+                    <li class="nav-item"><button class="nav-link rounded-pill px-4" data-bs-toggle="pill" data-bs-target="#registerTab">Đăng ký</button></li>
+                </ul>
+                <div class="tab-content border-0">
+                    <div class="tab-pane fade show active" id="loginTab">
+                        <input type="text" id="lUser" class="form-control mb-2 rounded-pill" placeholder="Tên đăng nhập">
+                        <input type="password" id="lPass" class="form-control mb-3 rounded-pill" placeholder="Mật khẩu">
+                        <button class="btn btn-primary w-100 rounded-pill py-2" data-bs-dismiss="modal" onclick="handleLogin()">ĐĂNG NHẬP</button>
+                    </div>
+                    <div class="tab-pane fade" id="registerTab">
+                        <input type="text" id="rUser" class="form-control mb-2 rounded-pill" placeholder="Tên đăng nhập mới">
+                        <input type="password" id="rPass" class="form-control mb-3 rounded-pill" placeholder="Mật khẩu mới">
+                        <button class="btn btn-success w-100 rounded-pill py-2" onclick="handleRegister()">ĐĂNG KÝ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn btn-dark rounded-circle" style="position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; z-index: 1000;" onclick="showCart()">
+        <i class="fa fa-shopping-cart"></i>
+    </button>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // 1. DỮ LIỆU BAN ĐẦU
+        var cart = [];
+        var productList = JSON.parse(localStorage.getItem('products')) || [];
+
+        $(document).ready(function () {
+            // Hiện sản phẩm
+            showProduct(productList);
+
+            // 2. XỬ LÝ TÌM KIẾM TRÊN NAVBAR
+            var iconSearch = $('.fa-search').closest('a, button');
             if ($('#searchHome').length === 0) {
                 iconSearch.before('<input type="text" id="searchHome" placeholder="Tìm trà sữa..." style="width: 0; opacity: 0; transition: 0.4s; border: 1px solid #32E0C4; border-radius: 20px; padding: 2px 10px; outline: none; margin-right: 5px;">');
             }
 
-            // 3. Hiệu ứng khi bấm vào kính lúp
             iconSearch.on('click', function (e) {
                 e.preventDefault();
                 var input = $('#searchHome');
                 var keyword = input.val().trim();
-
                 if (keyword === "") {
-                    // Nếu chưa gõ gì, bấm vào để hiện/ẩn ô nhập
                     var isActive = input.hasClass('active');
                     input.toggleClass('active').css({
                         'width': isActive ? '0' : '180px',
@@ -665,61 +934,114 @@
                     });
                     if (!isActive) input.focus();
                 } else {
-                    // Nếu đã gõ chữ, chuyển sang trang store.html kèm từ khóa
                     window.location.href = "store.html?search=" + encodeURIComponent(keyword);
                 }
             });
-
-            // 4. Nhấn Enter cũng chuyển trang luôn
-            $('#searchHome').on('keypress', function (e) {
-                if (e.which == 13) {
-                    var keyword = $(this).val().trim();
-                    if (keyword !== "") {
-                        window.location.href = "store.html?search=" + encodeURIComponent(keyword);
-                    }
-                }
-            });
         });
-    </script>
 
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="newsModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        // 3. HÀM HIỂN THỊ SẢN PHẨM
+        function showProduct(data) {
+            $("#productList").html("");
+            data.forEach(item => {
+                let cleanPrice = item.price.toString().replace(/\./g, '');
+                let html = `
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="product-item shadow-sm border p-3 text-center" style="border-radius: 15px; background: #fff;">
+                    <img class="img-fluid mb-3" src="img/${item.picture}" style="height:200px; width:100%; object-fit:cover; border-radius: 10px;">
+                    <h5 class="fw-bold">${item.name}</h5>
+                    <h5 class="text-primary">${item.price}đ</h5>
+                    <div class="d-grid gap-2 d-md-block mt-3">
+                        <button class="btn btn-primary btn-sm rounded-pill px-3" onclick="openDetail('${item.name}', '${item.picture}', '${item.price}')">Chi tiết</button>
+                        <button class="btn btn-dark btn-sm rounded-pill px-3" onclick="addToCart('${item.name}', '${cleanPrice}')">+ Giỏ hàng</button>
+                    </div>
                 </div>
+            </div>`;
+                $("#productList").append(html);
+            });
+        }
 
-                <div class="modal-body">
-                    <img id="modalImg" src="" class="img-fluid mb-3" style="width:100%;max-height:400px;object-fit:cover;">
-                    <p id="modalDesc"></p>
-                </div>
+        // 4. CHI TIẾT SẢN PHẨM
+        function openDetail(name, img, price) {
+            $("#dName").text(name);
+            $("#dImg").attr("src", "img/" + img);
+            $("#dPrice").text(price + "đ");
+            new bootstrap.Modal(document.getElementById('detailModal')).show();
+        }
 
-            </div>
-        </div>
-    </div>
-    <script>
+        // 5. LỌC SẢN PHẨM
+        function filterProduct(category, btn) {
+            $(".list-group-item").removeClass("active");
+            $(btn).addClass("active");
+            let filtered = (category === 'all') ? productList : productList.filter(item => item.category === category);
+            showProduct(filtered);
+        }
+
+        // 6. GIỎ HÀNG
+        function addToCart(name, price) {
+            let item = cart.find(i => i.name === name);
+            if (item) {
+                item.quantity += 1;
+            } else {
+                cart.push({ name: name, price: parseInt(price), quantity: 1 });
+            }
+            alert("Đã thêm " + name + " vào giỏ!");
+        }
+
+        function showCart() {
+            $("#cartContent").html("");
+            let total = 0;
+            if (cart.length === 0) {
+                $("#cartContent").html("<p class='text-center text-danger'>Giỏ hàng của bạn đang trống!</p>");
+            } else {
+                cart.forEach(item => {
+                    let itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    $("#cartContent").append(`<div class="d-flex justify-content-between mb-2 border-bottom pb-1">
+                    <span>${item.name} (x${item.quantity})</span>
+                    <span>${itemTotal.toLocaleString()}đ</span>
+                </div>`);
+                });
+            }
+            $("#cartTotal").text(total.toLocaleString());
+            new bootstrap.Modal(document.getElementById('cartModal')).show();
+        }
+
+        // 7. ĐĂNG KÝ / ĐĂNG NHẬP
+        function handleRegister() {
+            let u = $("#rUser").val(), p = $("#rPass").val();
+            if (u && p) {
+                localStorage.setItem('customerAccount', JSON.stringify({ u, p }));
+                alert("Đăng ký thành công! Hãy đăng nhập.");
+            } else { alert("Vui lòng điền đủ thông tin!"); }
+        }
+
+        function handleLogin() {
+            let u = $("#lUser").val(), p = $("#lPass").val();
+            let acc = JSON.parse(localStorage.getItem('customerAccount'));
+            if (acc && acc.u === u && acc.p === p) {
+                alert("Đăng nhập thành công! Chào mừng " + u);
+                bootstrap.Modal.getInstance(document.getElementById('authModal')).hide();
+            } else { alert("Sai tài khoản hoặc mật khẩu khách hàng!"); }
+        }
+
+        // 8. CHI TIẾT TIN TỨC (Dùng lại class viewDetail của bạn)
         $(document).on("click", ".viewDetail", function (e) {
             e.preventDefault();
-
-            let title = $(this).data("title");
-            let img = $(this).data("img");
-            let desc = $(this).data("desc");
-
-            $("#modalTitle").text(title);
-            $("#modalImg").attr("src", img);
-            $("#modalDesc").text(desc);
-
-            let modal = new bootstrap.Modal(document.getElementById('newsModal'));
-            modal.show();
+            $("#modalTitle").text($(this).data("title"));
+            $("#modalImg").attr("src", $(this).data("img"));
+            $("#modalDesc").text($(this).data("desc"));
+            new bootstrap.Modal(document.getElementById('newsModal')).show();
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
 
 </body>
 
+
+
+
+
 </html>
+
