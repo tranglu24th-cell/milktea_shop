@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿<!--<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="utf-8">
@@ -45,13 +45,43 @@
                 <a href="index.html">Quay về trang chủ</a>
             </div>
         </div>
-    </div>
+    </div>-->
 
-    <script>
+    <!--<script>
         function handleLogin() {
+            alert("Đăng nhập thành công với quyền Admin!");
+            window.location.href = "admin/index.html";
+        }
+
+    </script>-->
+    <!--<script>
+        function handleLogin() {
+            // 1. Tạo dữ liệu giả cho Đơn hàng (có hình thực tế)
+            const sampleOrders = [
+                { id: "DH001", customer: "Nguyễn Văn A", product: "Trà sữa Trân châu", price: "35.000đ", status: "Đang xử lý", date: "07/05/2026", img: "https://vcdn1-dulich.vnecdn.net/2022/07/04/du-lich-soc-trang-6-1656923306.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=Z6f6D9f_Y2Z_Y2Z_Y2Z_Y2Z" },
+                { id: "DH002", customer: "Trần Thị B", product: "Trà đào Cam sả", price: "40.000đ", status: "Đã giao", date: "07/05/2026", img: "https://i.ytimg.com/vi/S7Sg3Xl0Kyo/maxresdefault.jpg" }
+            ];
+
+            // 2. Tạo dữ liệu giả cho Người dùng
+            const sampleUsers = [
+                { id: 1, name: "Nguyễn Văn A", email: "vana@gmail.com", phone: "0901234567" },
+                { id: 2, name: "Trần Thị B", email: "thib@gmail.com", phone: "0907654321" }
+            ];
+
+            // 3. Tạo dữ liệu giả cho Liên hệ
+            const sampleFeedbacks = [
+                { id: 1, name: "Lê Văn C", email: "vanc@gmail.com", message: "Trà sữa rất ngon, sẽ ủng hộ tiếp!", date: "07/05/2026" }
+            ];
+
+            // Lưu tất cả vào LocalStorage
+            localStorage.setItem('orders', JSON.stringify(sampleOrders));
+            localStorage.setItem('users', JSON.stringify(sampleUsers));
+            localStorage.setItem('feedbacks', JSON.stringify(sampleFeedbacks));
+
+            // Thông báo và chuyển hướng
             alert("Đăng nhập thành công với quyền Admin!");
             window.location.href = "admin/index.html";
         }
     </script>
 </body>
-</html>
+</html>-->
