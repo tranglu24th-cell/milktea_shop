@@ -795,7 +795,7 @@
                 let user = $("#rUser").val();
                 let pass = $("#rPass").val();
                 if (user && pass) {
-                    // Đổi tên thành customerAccount để tránh trùng với admin
+                 
                     localStorage.setItem('customerAccount', JSON.stringify({ user, pass }));
                     alert("Đăng ký thành công!");
                 }
@@ -807,16 +807,16 @@
                 let acc = JSON.parse(localStorage.getItem('customerAccount'));
 
                 if (acc && acc.u === u && acc.p === p) {
-                    // 1. Xóa cái màn hình đen ngay lập tức (Để không bị đứng máy)
+                   
                     $('.modal-backdrop').remove();
                     $('body').removeClass('modal-open');
                     $('body').css('overflow', 'auto');
                     $('#authModal').hide();
 
-                    // 2. Hiện thông báo
+                   
                     alert("Đăng nhập thành công! Chào mừng " + u);
 
-                    // 3. Tải lại trang để xóa sạch mọi lỗi kẹt màn hình
+                    
                     window.location.reload();
                 } else {
                     alert("Sai tài khoản hoặc mật khẩu!");
@@ -1024,7 +1024,7 @@
             } else { alert("Sai tài khoản hoặc mật khẩu khách hàng!"); }
         }
 
-        // 8. CHI TIẾT TIN TỨC (Dùng lại class viewDetail của bạn)
+        // 8. CHI TIẾT TIN TỨC 
         $(document).on("click", ".viewDetail", function (e) {
             e.preventDefault();
             $("#modalTitle").text($(this).data("title"));

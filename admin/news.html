@@ -69,7 +69,7 @@
                         <a href="#" class="nav-link">Liên hệ</a>
                     </li>
                 </ul>
-                
+
                 <!--end::End Navbar Links-->
             </div>
             <!--end::Container-->
@@ -82,8 +82,8 @@
                 <!--begin::Brand Link-->
                 <a href="../index.html" class="brand-link">
                     <!--begin::Brand Image-->
-                    <img src="../assets/img/AdminLTELogo.png"
-                         alt="AdminLTE Logo"
+                    <img src="dist/assets/img/avt.jpg"
+                         alt="MilkTea Shop"
                          class="brand-image opacity-75 shadow" />
                     <!--end::Brand Image-->
                     <!--begin::Brand Text-->
@@ -135,68 +135,25 @@
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon bi bi-box-seam-fill"></i>
-                                <p>
-                                    Nghiệp vụ
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
+                                <p>Nghiệp vụ <i class="nav-arrow bi bi-chevron-right"></i></p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="products.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Mua hàng</p>
+                                    <a href="javascript:void(0)" onclick="showOrders()" class="nav-link">
+                                        <i class="nav-icon bi bi-cart-check"></i>
+                                        <p>Quản lý đơn hàng</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="news.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Bán hàng</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-box-seam-fill"></i>
-                                <p>
-                                    Thống kê
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="product.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Doanh thu</p>
+                                    <a href="javascript:void(0)" onclick="showUsers()" class="nav-link">
+                                        <i class="nav-icon bi bi-people-fill"></i>
+                                        <p>Quản lý người dùng</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="news.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Lượt truy cập</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-box-seam-fill"></i>
-                                <p>
-                                    Hệ thống
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="permission.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Phân quyền</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="member.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Danh sách thành viên</p>
+                                    <a href="javascript:void(0)" onclick="showContacts()" class="nav-link">
+                                        <i class="nav-icon bi bi-chat-dots-fill"></i>
+                                        <p>Quản lý liên hệ</p>
                                     </a>
                                 </li>
                             </ul>
@@ -469,6 +426,116 @@
             </div>
         </div>
     </div>
+
+
+    <script>
+        // --- QUẢN LÝ DỮ LIỆU ĐƠN HÀNG  ---
+        const initialOrders = [
+            {
+                id: "DH001",
+                customer: "Nguyễn Văn An",
+                product: "Trà sữa ",
+             
+                img: "https://vn-live-01.slatic.net/p/01fa36387c60e0493f8549b0f2ce8c70.jpg",
+                date: "07/05/2026",
+                status: "Đang xử lý"
+            },
+            {
+                id: "DH002",
+                customer: "Trần Thị Bình",
+                product: "Trà sữa Trân châu",
+                
+                img: "http://nguyenanhlogistics.com/wp-content/uploads/2022/12/tra-sua-okla.jpg",
+                date: "08/05/2026",
+                status: "Đã giao"
+            },
+            
+        ];
+
+        // Khởi tạo dữ liệu 
+        if (!localStorage.getItem('orders')) {
+            localStorage.setItem('orders', JSON.stringify(initialOrders));
+        }
+
+        // Các hàm tiện ích để cập nhật giao diện
+        const updateView = (title, htmlContent) => {
+            document.querySelector('.app-content-header h3').innerText = title;
+            document.querySelector('.app-content .container-fluid').innerHTML = htmlContent;
+        };
+
+        // --- CHỨC NĂNG 1: QUẢN LÝ ĐƠN HÀNG ---
+        function showOrders() {
+            let orders = JSON.parse(localStorage.getItem('orders'));
+            let html = `
+            <div class="card shadow-sm">
+                <div class="card-header text-white" style="background-color: #32E0C4;"><h3 class="card-title">📦 Danh sách đơn hàng</h3></div>
+                <div class="card-body p-0">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr><th>Ảnh</th><th>Mã đơn</th><th>Khách hàng</th><th>Sản phẩm</th><th>Trạng thái</th><th>Hành động</th></tr>
+                        </thead>
+                        <tbody>`;
+            orders.forEach((o, i) => {
+                let badge = o.status === "Đang xử lý" ? "text-bg-warning" : "text-bg-success";
+                html += `
+                <tr>
+                    <td><img src="${o.img}" style="width:45px; height:45px; object-fit:cover; border-radius:5px;"></td>
+                    <td><b>${o.id}</b></td><td>${o.customer}</td><td>${o.product}</td>
+                    <td><span class="badge ${badge}">${o.status}</span></td>
+                    <td><button onclick="updateOrderStatus(${i})" class="btn btn-sm btn-outline-info">Đổi trạng thái</button></td>
+                </tr>`;
+            });
+            updateView("Quản lý đơn hàng", html + `</tbody></table></div></div>`);
+        }
+
+        function updateOrderStatus(index) {
+            let orders = JSON.parse(localStorage.getItem('orders'));
+            orders[index].status = orders[index].status === "Đang xử lý" ? "Đã giao" : "Đang xử lý";
+            localStorage.setItem('orders', JSON.stringify(orders));
+            showOrders();
+        }
+
+        // --- CHỨC NĂNG 2: QUẢN LÝ NGƯỜI DÙNG ---
+        function showUsers() {
+            let users = [
+                { name: "Nguyễn Văn An", email: "an.nguyen@gmail.com", date: "07/05/2026" },
+                { name: "Trần Thị Bình", email: "binh.tran@gmail.com", date: "08/05/2026" },
+                { name: "Lê Hoàng Nam", email: "nam.le@gmail.com", date: "08/05/2026" }
+            ];
+            let html = `
+            <div class="card shadow-sm border-success">
+                <div class="card-header bg-success text-white"><h3 class="card-title">👥 Khách hàng hệ thống</h3></div>
+                <div class="card-body p-0">
+                    <table class="table table-striped mb-0">
+                        <thead><tr><th>Tên người dùng</th><th>Email</th><th>Ngày đăng ký</th></tr></thead>
+                        <tbody>`;
+            users.forEach(u => {
+                html += `<tr><td><strong>${u.name}</strong></td><td>${u.email}</td><td>${u.date}</td></tr>`;
+            });
+            updateView("Quản lý người dùng", html + `</tbody></table></div></div>`);
+        }
+
+        // --- CHỨC NĂNG 3: QUẢN LÝ LIÊN HỆ ---
+        function showContacts() {
+            let contacts = [
+                { name: "Lê Văn Cường", msg: "Trà sữa Matcha rất ngon!", date: "08/05 10:30" },
+                { name: "Phạm Thị Diệu", msg: "Quán có tuyển nhân viên không ạ?", date: "08/05 14:15" }
+            ];
+            let html = `<div class="row">`;
+            contacts.forEach(c => {
+                html += `
+                <div class="col-md-6 mb-3">
+                    <div class="card card-outline card-info shadow-sm h-100">
+                        <div class="card-header"><h3 class="card-title">${c.name}</h3></div>
+                        <div class="card-body"><p class="text-dark">"${c.msg}"</p><small class="text-muted">${c.date}</small></div>
+                    </div>
+                </div>`;
+            });
+            updateView("Tin nhắn & Góp ý", html + `</div>`);
+        }
+    </script>
+
+
 </body>
 <!--end::Body-->
 </html>

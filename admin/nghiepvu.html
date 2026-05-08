@@ -1,0 +1,421 @@
+﻿<!doctype html>
+<html lang="en">
+<!--begin::Head-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Admin | Nghiệp vụ</title>
+
+    <!--begin::Accessibility Meta Tags-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#007bff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)" />
+    <!--end::Accessibility Meta Tags-->
+    <!--begin::Primary Meta Tags-->
+    <meta name="title" content="Admin | Danh sách tin tức" />
+    <meta name="author" content="ColorlibHQ" />
+    <meta name="description"
+          content="AdminLTE is a Free Bootstrap 5 Admin Dashboard, 30 example pages using Vanilla JS. Fully accessible with WCAG 2.1 AA compliance." />
+    <meta name="keywords"
+          content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard, accessible admin panel, WCAG compliant" />
+    <!--end::Primary Meta Tags-->
+    <!--begin::Accessibility Features-->
+    <!-- Skip links will be dynamically added by accessibility.js -->
+    <meta name="supported-color-schemes" content="light dark" />
+    <link rel="preload" href="dist/css/adminlte.css" as="style" />
+    <!--end::Accessibility Features-->
+    <!--begin::Fonts-->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
+          integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q="
+          crossorigin="anonymous"
+          media="print"
+          onload="this.media = 'all'" />
+    <!--end::Fonts-->
+    <!--begin::Third Party Plugin(OverlayScrollbars)-->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/styles/overlayscrollbars.min.css"
+          crossorigin="anonymous" />
+    <!--end::Third Party Plugin(OverlayScrollbars)-->
+    <!--begin::Third Party Plugin(Bootstrap Icons)-->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+          crossorigin="anonymous" />
+    <!--end::Third Party Plugin(Bootstrap Icons)-->
+    <!--begin::Required Plugin(AdminLTE)-->
+    <link rel="stylesheet" href="dist/css/adminlte.css" />
+    <!--end::Required Plugin(AdminLTE)-->
+</head>
+<!--end::Head-->
+<!--begin::Body-->
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    <!--begin::App Wrapper-->
+    <div class="app-wrapper">
+        <!--begin::Header-->
+        <nav class="app-header navbar navbar-expand bg-body">
+            <!--begin::Container-->
+            <div class="container-fluid">
+                <!--begin::Start Navbar Links-->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
+                            <i class="bi bi-list"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item d-none d-md-block">
+                        <a href="#" class="nav-link">Trang chủ</a>
+                    </li>
+                    <li class="nav-item d-none d-md-block">
+                        <a href="#" class="nav-link">Liên hệ</a>
+                    </li>
+                </ul>
+
+                <!--end::End Navbar Links-->
+            </div>
+            <!--end::Container-->
+        </nav>
+        <!--end::Header-->
+        <!--begin::Sidebar-->
+        <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
+            <!--begin::Sidebar Brand-->
+            <div class="sidebar-brand">
+                <!--begin::Brand Link-->
+                <a href="../index.html" class="brand-link">
+                    <!--begin::Brand Image-->
+                    <img src="../assets/img/AdminLTELogo.png"
+                         alt="AdminLTE Logo"
+                         class="brand-image opacity-75 shadow" />
+                    <!--end::Brand Image-->
+                    <!--begin::Brand Text-->
+                    <span class="brand-text fw-light">Admin Milk Tea</span>
+                    <!--end::Brand Text-->
+                </a>
+                <!--end::Brand Link-->
+            </div>
+            <!--end::Sidebar Brand-->
+            <!--begin::Sidebar Wrapper-->
+            <div class="sidebar-wrapper">
+                <nav class="mt-2">
+                    <!--begin::Sidebar Menu-->
+                    <ul class="nav sidebar-menu flex-column"
+                        data-lte-toggle="treeview"
+                        role="navigation"
+                        aria-label="Main navigation"
+                        data-accordion="false"
+                        id="navigation">
+                        <li class="nav-item">
+                            <a href="index.html" class="nav-link">
+                                <i class="nav-icon bi bi-house-heart-fill"></i>
+                                <p>Trang chủ</p>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon bi bi-box-seam-fill"></i>
+                                <p>
+                                    Danh mục
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="product.html" class="nav-link">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Sản phẩm</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="news.html" class="nav-link">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Tin tức</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item user-menu open menu-open">
+                            <a href="#" class="nav-link active">
+                                <i class="nav-icon bi bi-box-seam-fill"></i>
+                                <p>Nghiệp vụ 
+                                <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="javascript:void(0)" onclick="showOrders()" class="nav-link">
+                                        <i class="nav-icon bi bi-cart-check"></i>
+                                        <p>Quản lý đơn hàng</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="javascript:void(0)" onclick="showUsers()" class="nav-link">
+                                        <i class="nav-icon bi bi-people-fill"></i>
+                                        <p>Quản lý người dùng</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="javascript:void(0)" onclick="showContacts()" class="nav-link">
+                                        <i class="nav-icon bi bi-chat-dots-fill"></i>
+                                        <p>Quản lý liên hệ</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!--end::Sidebar Menu-->
+                </nav>
+            </div>
+            <!--end::Sidebar Wrapper-->
+        </aside>
+        <!--end::Sidebar-->
+        <!--begin::App Main-->
+        <main class="app-main">
+            <!--begin::App Content Header-->
+            <div class="app-content-header">
+                <!--begin::Container-->
+                <div class="container-fluid">
+                    <!--begin::Row-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h3 class="mb-0">Danh sách tin tức</h3>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-end">
+                                <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Danh sách tin tức</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <!--end::Row-->
+                </div>
+                <!--end::Container-->
+            </div>
+            <!--end::App Content Header-->
+            <!--begin::App Content-->
+            <div class="app-content">
+                <!--begin::Container-->
+                <div class="container-fluid">
+                    <!--begin::Row-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <h3 class="card-title">Bảng danh sách tin tức</h3>
+                                </div>
+                                <!-- /.card-header -->
+
+
+                                <div class="card-body">
+                                    <button id="addNews" class="btn btn-primary mb-2">
+                                        Thêm tin tức
+                                    </button>
+                                    <table id="newsList" class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Tiêu đề</th>
+                                                <th>Hình</th>
+                                                <th>Nội dung</th>
+                                                <th>Hành động</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+
+                            </div>
+                            <!-- /.card -->
+
+                        </div>
+                        <!-- /.col -->
+
+                    </div>
+                    <!--end::Row-->
+                </div>
+                <!--end::Container-->
+            </div>
+            <!--end::App Content-->
+        </main>
+        <!--end::App Main-->
+        <!--begin::Footer-->
+        <footer class="app-footer">
+            <!--begin::To the end-->
+            <div class="float-end d-none d-sm-inline">Mọi quyền được bảo lưu</div>
+            <!--end::To the end-->
+            <!--begin::Copyright-->
+            <strong>
+                Copyright &copy; 2014-2026&nbsp;
+                <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
+            </strong>
+            Mọi quyền được bảo lưu.
+            <!--end::Copyright-->
+        </footer>
+        <!--end::Footer-->
+    </div>
+    <!--end::App Wrapper-->
+    <!--begin::Script-->
+    <!--begin::Third Party Plugin(OverlayScrollbars)-->
+    <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/browser/overlayscrollbars.browser.es6.min.js"
+            crossorigin="anonymous"></script>
+    <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            crossorigin="anonymous"></script>
+    <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+            crossorigin="anonymous"></script>
+    <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
+    <script src="dist/js/adminlte.js"></script>
+    <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
+    <script>
+        const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
+        const Default = {
+            scrollbarTheme: 'os-theme-light',
+            scrollbarAutoHide: 'leave',
+            scrollbarClickScroll: true,
+        };
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
+
+            // Disable OverlayScrollbars on mobile devices to prevent touch interference
+            const isMobile = window.innerWidth <= 992;
+
+            if (
+                sidebarWrapper &&
+                OverlayScrollbarsGlobal?.OverlayScrollbars !== undefined &&
+                !isMobile
+            ) {
+                OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
+                    scrollbars: {
+                        theme: Default.scrollbarTheme,
+                        autoHide: Default.scrollbarAutoHide,
+                        clickScroll: Default.scrollbarClickScroll,
+                    },
+                });
+            }
+        });
+    </script>
+    <!--end::OverlayScrollbars Configure-->
+    <!--end::Script-->
+    <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+    
+
+
+    <script>
+        // --- 1. QUẢN LÝ DỮ LIỆU ĐƠN HÀNG (Thay ảnh tại đây) ---
+        const initialOrders = [
+            {
+                id: "DH001",
+                customer: "Nguyễn Văn An",
+                product: "Trà sữa Matcha",
+                // Dán link ảnh Matcha vào đây
+                img: "http://nguyenanhlogistics.com/wp-content/uploads/2022/12/tra-sua-okla.jpg",
+                date: "07/05/2026",
+                status: "Đang xử lý"
+            },
+            {
+                id: "DH002",
+                customer: "Trần Thị Bình",
+                product: "Trà sữa Trân châu",
+                // Dán link ảnh Trân châu vào đây
+                img: "http://nguyenanhlogistics.com/wp-content/uploads/2022/12/tra-sua-okla.jpg",
+                date: "08/05/2026",
+                status: "Đã giao"
+            },
+            {
+                id: "DH003",
+                customer: "Lê Hoàng Nam",
+                product: "Sữa tươi đường đen",
+                // Dán link ảnh Sữa tươi vào đây
+                img: "http://nguyenanhlogistics.com/wp-content/uploads/2022/12/tra-sua-okla.jpg",
+                date: "08/05/2026",
+                status: "Đang xử lý"
+            }
+        ];
+
+        // Khởi tạo dữ liệu (Tự động cập nhật nếu bạn thay đổi link ở trên)
+        if (!localStorage.getItem('orders')) {
+            localStorage.setItem('orders', JSON.stringify(initialOrders));
+        }
+
+        // Các hàm tiện ích để cập nhật giao diện
+        const updateView = (title, htmlContent) => {
+            document.querySelector('.app-content-header h3').innerText = title;
+            document.querySelector('.app-content .container-fluid').innerHTML = htmlContent;
+        };
+
+        // --- CHỨC NĂNG 1: QUẢN LÝ ĐƠN HÀNG ---
+        function showOrders() {
+            let orders = JSON.parse(localStorage.getItem('orders'));
+            let html = `
+            <div class="card shadow-sm">
+                <div class="card-header text-white" style="background-color: #32E0C4;"><h3 class="card-title">📦 Danh sách đơn hàng</h3></div>
+                <div class="card-body p-0">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr><th>Ảnh</th><th>Mã đơn</th><th>Khách hàng</th><th>Sản phẩm</th><th>Trạng thái</th><th>Hành động</th></tr>
+                        </thead>
+                        <tbody>`;
+            orders.forEach((o, i) => {
+                let badge = o.status === "Đang xử lý" ? "text-bg-warning" : "text-bg-success";
+                html += `
+                <tr>
+                    <td><img src="${o.img}" style="width:45px; height:45px; object-fit:cover; border-radius:5px;"></td>
+                    <td><b>${o.id}</b></td><td>${o.customer}</td><td>${o.product}</td>
+                    <td><span class="badge ${badge}">${o.status}</span></td>
+                    <td><button onclick="updateOrderStatus(${i})" class="btn btn-sm btn-outline-info">Đổi trạng thái</button></td>
+                </tr>`;
+            });
+            updateView("Quản lý đơn hàng", html + `</tbody></table></div></div>`);
+        }
+
+        function updateOrderStatus(index) {
+            let orders = JSON.parse(localStorage.getItem('orders'));
+            orders[index].status = orders[index].status === "Đang xử lý" ? "Đã giao" : "Đang xử lý";
+            localStorage.setItem('orders', JSON.stringify(orders));
+            showOrders();
+        }
+
+        // --- CHỨC NĂNG 2: QUẢN LÝ NGƯỜI DÙNG ---
+        function showUsers() {
+            let users = [
+                { name: "Nguyễn Văn An", email: "an.nguyen@gmail.com", date: "07/05/2026" },
+                { name: "Trần Thị Bình", email: "binh.tran@gmail.com", date: "08/05/2026" },
+                { name: "Lê Hoàng Nam", email: "nam.le@gmail.com", date: "08/05/2026" }
+            ];
+            let html = `
+            <div class="card shadow-sm border-success">
+                <div class="card-header bg-success text-white"><h3 class="card-title">👥 Khách hàng hệ thống</h3></div>
+                <div class="card-body p-0">
+                    <table class="table table-striped mb-0">
+                        <thead><tr><th>Tên người dùng</th><th>Email</th><th>Ngày đăng ký</th></tr></thead>
+                        <tbody>`;
+            users.forEach(u => {
+                html += `<tr><td><strong>${u.name}</strong></td><td>${u.email}</td><td>${u.date}</td></tr>`;
+            });
+            updateView("Quản lý người dùng", html + `</tbody></table></div></div>`);
+        }
+
+        // --- CHỨC NĂNG 3: QUẢN LÝ LIÊN HỆ ---
+        function showContacts() {
+            let contacts = [
+                { name: "Lê Văn Cường", msg: "Trà sữa Matcha rất ngon!", date: "08/05 10:30" },
+                { name: "Phạm Thị Diệu", msg: "Quán có tuyển nhân viên không ạ?", date: "08/05 14:15" }
+            ];
+            let html = `<div class="row">`;
+            contacts.forEach(c => {
+                html += `
+                <div class="col-md-6 mb-3">
+                    <div class="card card-outline card-info shadow-sm h-100">
+                        <div class="card-header"><h3 class="card-title">${c.name}</h3></div>
+                        <div class="card-body"><p class="text-dark">"${c.msg}"</p><small class="text-muted">${c.date}</small></div>
+                    </div>
+                </div>`;
+            });
+            updateView("Tin nhắn & Góp ý", html + `</div>`);
+        }
+    </script>
+
+
+</body>
+<!--end::Body-->
+</html>
